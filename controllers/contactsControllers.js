@@ -2,9 +2,12 @@ import * as contactsService from "../services/contactsServices.js";
 import HttpError from "../helpers/HttpError.js";
 
 
-export const getAllContacts = async (_, res, next) => { 
+export const getAllContacts = async (req, res, next) => { 
     try {
-        const result = await contactsService.listContacts(); 
+        const { _id: owner } = req.user;
+        const { page = 1, limit = 20 } = req.query;
+        const skip = (page - 1) * limit; 
+        const result = await contactsService.listContacts(owner, {skip, limit}); 
         res.status(200).json(result);
     }
     catch(error) { 
@@ -44,7 +47,8 @@ export const deleteContact = async (req, res, next) => {
 
 export const createContact = async (req, res, next) => {
     try {
-        const result = await contactsService.addContact(req.body); 
+        const { _id: owner } = req.user;
+        const result = await contactsService.addContact(...req.body, owner); 
         res.status(201).json(result);
     }
     catch (error) {
