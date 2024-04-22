@@ -1,7 +1,8 @@
 import Contact from "../models/Contact.js";
 
 
-export const listContacts = (filter, setting = {}) => Contact.find(filter, setting);
+export const listContacts = (filter ={}, setting = {}) => Contact.find(filter, "-createdAt -updatedAt", setting).populate("owner", "username email")
+
 
 export const getContactById = async (contactId) => {
     const contact = await Contact.findById(contactId);
