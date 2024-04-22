@@ -66,9 +66,7 @@ const signout = async (req, res) => {
     const { _id } = req.user;
     await authServices.updateUser({ _id }, { token: "" });
 
-    res.json({
-        message: "Signout success"
-    })
+    res.status(204).json()
 }
 
 
