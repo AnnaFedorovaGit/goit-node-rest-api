@@ -13,8 +13,8 @@ export const removeContact = (contactId) => {
     return Contact.findByIdAndDelete(contactId);
 }
 
-export const addContact = ({ name, email, phone }) => { 
-    return Contact.create({ name, email, phone });
+export const addContact = ({ name, email, phone, owner }) => { 
+    return Contact.create({ name, email, phone, owner });
 }
 
 export const updateContact = (contactId, body) => {
