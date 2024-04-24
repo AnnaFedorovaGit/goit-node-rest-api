@@ -41,6 +41,7 @@ const createContact = async (req, res, next) => {
 };
 
 const updateContact = async (req, res, next) => {
+    const { _id: owner } = req.user;
     if (!req.body || !Object.keys(req.body).length ) { 
         throw HttpError(400, "Body must have at least one field");
     }
@@ -55,6 +56,7 @@ const updateContact = async (req, res, next) => {
 };
 
 const updateStatusContact = async (req, res, next) => {
+    const { _id: owner } = req.user;
     const { id } = req.params;
     const result = await contactsService.updateStatusContact({ owner, _id: id }, req.body);
     if (!result) {
